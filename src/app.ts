@@ -125,6 +125,7 @@ const corsOptions = {
     'http://localhost:5173', 
     'http://localhost:5174', 
     'http://localhost:3000',
+    'https://sevadaan-teal.vercel.app',
     'https://frontend-32yysvoj1-subhdas272004-gmailcoms-projects.vercel.app',
     /^https:\/\/.*\.vercel\.app$/  // Allow all Vercel preview deployments
   ],
