@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 SevaDaan Comprehensive Test Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .header p { font-size: 1.1rem; opacity: 0.9; }
+        
+        .nav {
+            background: #f8fafc;
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-btn {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover { background: #3730a3; transform: translateY(-2px); }
+        .nav-btn.active { background: #1d4ed8; }
+        
+        .content { padding: 30px; }
+        .section { display: none; }
+        .section.active { display: block; }
+        
+        .credentials {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .credentials h3 { color: #0369a1; margin-bottom: 15px; }
+        
+        .credential-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        
+        .credential-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #0ea5e9;
+        }
+        
+        .credential-item h4 { color: #1e40af; margin-bottom: 8px; }
+        .credential-item p { margin: 4px 0; font-family: monospace; font-size: 0.9rem; }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .stat-card h3 { font-size: 2.5rem; margin-bottom: 8px; }
+        .stat-card p { opacity: 0.9; font-weight: 500; }
+        
+        .api-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .api-section h3 {
+            color: #1e293b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .api-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .api-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .api-btn:hover { background: #059669; }
+        .api-btn.loading { background: #6b7280; cursor: not-allowed; }
+        
+        .response-container {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .response-data {
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+        }
+        
+        .ngo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .ngo-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .ngo-card:hover { transform: translateY(-5px); }
+        
+        .ngo-banner {
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .ngo-content { padding: 20px; }
+        .ngo-content h4 { color: #1e293b; margin-bottom: 10px; font-size: 1.2rem; }
+        .ngo-content p { color: #64748b; margin-bottom: 15px; font-size: 0.9rem; line-height: 1.5; }
+        
+        .ngo-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .ngo-location { color: #64748b; font-size: 0.8rem; }
+        
+        .ngo-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-verified { background: #dcfce7; color: #166534; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        
+        .loading { text-align: center; padding: 40px; color: #64748b; }
+        .error { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 15px; border-radius: 8px; margin: 15px 0; }
+        
+        @media (max-width: 768px) {
+            .container { margin: 10px; border-radius: 8px; }
+            .header { padding: 20px; }
+            .header h1 { font-size: 1.8rem; }
+            .nav-buttons { flex-direction: column; }
+            .nav-btn { width: 100%; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 SevaDaan Test Dashboard</h1>
+            <p>Comprehensive Test Environment with 20+ NGOs, Programs, Events & Demo Data</p>
+        </div>
+        
+        <div class="nav">
+            <div class="nav-buttons">
+                <button class="nav-btn active" onclick="showSection('overview')">📊 Overview</button>
+                <button class="nav-btn" onclick="showSection('ngos')">🏢 NGOs</button>
+                <button class="nav-btn" onclick="showSection('programs')">📋 Programs</button>
+                <button class="nav-btn" onclick="showSection('events')">📅 Events</button>
+                <button class="nav-btn" onclick="showSection('donations')">💰 Donations</button>
+                <button class="nav-btn" onclick="showSection('api-test')">🔧 API Test</button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- Overview Section -->
+            <div id="overview" class="section active">
+                <div class="credentials">
+                    <h3>🔑 Test Login Credentials (Password: "password" for all)</h3>
+                    <div class="credential-grid">
+                        <div class="credential-item">
+                            <h4>System Admin</h4>
+                            <p><strong>Email:</strong> admin@sevadaan.com</p>
+                            <p><strong>Role:</strong> Full system access</p>
+                        </div>
+                        <div class="credential-item">
+                            <h4>NGO Admin</h4>
+                            <p><strong>Email:</strong> rajesh.ngo@sevadaan.com</p>
+                            <p><strong>Role:</strong> NGO management</p>
+                        </div>
+                        <div class="credential-item">
+                            <h4>Volunteer</h4>
+                            <p><strong>Email:</strong> priya.volunteer@sevadaan.com</p>
+                            <p><strong>Role:</strong> Volunteer activities</p>
+                        </div>
+                        <div class="credential-item">
+                            <h4>Donor</h4>
+                            <p><strong>Email:</strong> amit.donor@sevadaan.com</p>
+                            <p><strong>Role:</strong> Make donations</p>
+                        </div>
+                        <div class="credential-item">
+                            <h4>Citizen</h4>
+                            <p><strong>Email:</strong> sunita.citizen@sevadaan.com</p>
+                            <p><strong>Role:</strong> Basic user access</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-grid" id="stats-container">
+                    <div class="stat-card">
+                        <h3 id="total-ngos">20</h3>
+                        <p>Total NGOs</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="verified-ngos">18</h3>
+                        <p>Verified NGOs</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="total-programs">85+</h3>
+                        <p>Programs</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="total-events">50+</h3>
+                        <p>Events</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="total-donations">₹157L</h3>
+                        <p>Total Donations</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="total-beneficiaries">45K+</h3>
+                        <p>Beneficiaries</p>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <h3>🚀 Server Status</h3>
+                    <div class="api-controls">
+                        <button class="api-btn" onclick="checkServerHealth()">Check Health</button>
+                        <button class="api-btn" onclick="loadDashboardData()">Load Dashboard Data</button>
+                    </div>
+                    <div id="server-status" style="padding: 15px; background: white; border-radius: 8px; margin-top: 10px;">
+                        <p>Click "Check Health" to test server connection...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NGOs Section -->
+            <div id="ngos" class="section">
+                <div class="api-section">
+                    <h3>🏢 NGO Directory (20 Complete Organizations)</h3>
+                    <div class="api-controls">
+                        <button class="api-btn" onclick="loadNGOs()">Load All NGOs</button>
+                        <button class="api-btn" onclick="loadNGOs('verified')">Verified Only</button>
+                        <button class="api-btn" onclick="loadNGOs('under_review')">Under Review</button>
+                    </div>
+                    <div id="ngos-container"></div>
+                </div>
+            </div>
+            
+            <!-- Programs Section -->
+            <div id="programs" class="section">
+                <div class="api-section">
+                    <h3>📋 Programs & Initiatives</h3>
+                    <div class="api-controls">
+                        <button class="api-btn" onclick="loadPrograms()">Load All Programs</button>
+                        <button class="api-btn" onclick="loadPrograms('active')">Active Programs</button>
+                        <button class="api-btn" onclick="loadPrograms('completed')">Completed Programs</button>
+                    </div>
+                    <div class="response-container">
+                        <div class="response-data" id="programs-data">Click a button above to load programs data...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Events Section -->
+            <div id="events" class="section">
+                <div class="api-section">
+                    <h3>📅 Events & Activities</h3>
+                    <div class="api-controls">
+                        <button class="api-btn" onclick="loadEvents()">Load All Events</button>
+                        <button class="api-btn" onclick="loadEvents('upcoming')">Upcoming Events</button>
+                        <button class="api-btn" onclick="loadEvents('published')">Published Events</button>
+                    </div>
+                    <div class="response-container">
+                        <div class="response-data" id="events-data">Click a button above to load events data...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Donations Section -->
+            <div id="donations" class="section">
+                <div class="api-section">
+                    <h3>💰 Donations & Transactions</h3>
+                    <div class="api-controls">
+                        <button class="api-btn" onclick="loadDonations()">Load All Donations</button>
+                        <button class="api-btn" onclick="loadDonations('completed')">Completed Donations</button>
+                        <button class="api-btn" onclick="loadDonations('recent')">Recent Donations</button>
+                    </div>
+                    <div class="response-container">
+                        <div class="response-data" id="donations-data">Click a button above to load donations data...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- API Test Section -->
+            <div id="api-test" class="section">
+                <div class="api-section">
+                    <h3>🔧 API Testing Panel</h3>
+                    <div class="api-controls">
+                        <button class="api-btn" onclick="testAPI('/api/health')">Health Check</button>
+                        <button class="api-btn" onclick="testAPI('/api/dashboard')">Dashboard Data</button>
+                        <button class="api-btn" onclick="testAPI('/api/stats')">System Stats</button>
+                        <button class="api-btn" onclick="testAPI('/api/categories')">Categories</button>
+                    </div>
+                    <div class="response-container">
+                        <div class="response-data" id="api-response">Select an API endpoint to test...</div>
+                    </div>
+                </div>
+                
+                <div class="api-section">
+                    <h3>📋 Available API Endpoints</h3>
+                    <div style="background: white; padding: 20px; border-radius: 8px;">
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin: 8px 0;"><strong>GET /api/health</strong> - Server health check</li>
+                            <li style="margin: 8px 0;"><strong>GET /api/ngos</strong> - List all NGOs (with pagination)</li>
+                            <li style="margin: 8px 0;"><strong>GET /api/ngos/:id</strong> - Get specific NGO details</li>
+                            <li style="margin: 8px 0;"><strong>GET /api/programs</strong> - List all programs</li>
+                            <li style="margin: 8px 0;"><strong>GET /api/events</strong> - List all events</li>
+                            <li style="margin: 8px 0;"><strong>GET /api/donations</strong> - List all donations</li>
+                            <li style="margin: 8px 0;"><strong>GET /api/dashboard</strong> - Dashboard statistics</li>
+                            <li style="margin: 8px 0;"><strong>POST /api/auth/login</strong> - User authentication</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000';
+        
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        async function checkServerHealth() {
+            const statusElement = document.getElementById('server-status');
+            statusElement.innerHTML = '<p>🔄 Checking server...</p>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/health`);
+                const data = await response.json();
+                
+                statusElement.innerHTML = `
+                    <div style="color: #059669; font-weight: bold;">✅ Server is running!</div>
+                    <div style="margin-top: 10px;">
+                        <p><strong>Message:</strong> ${data.message || 'SevaDaan Test API Server'}</p>
+                        <p><strong>Timestamp:</strong> ${data.timestamp || new Date().toISOString()}</p>
+                        <p><strong>Status:</strong> ${data.status || 'OK'}</p>
+                    </div>
+                `;
+            } catch (error) {
+                statusElement.innerHTML = `
+                    <div style="color: #dc2626; font-weight: bold;">❌ Server not responding</div>
+                    <div style="margin-top: 10px;">
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p><strong>Solution:</strong> Make sure the backend server is running on port 3000</p>
+                        <p><strong>Command:</strong> cd Backend && node test-api-server.js</p>
+                    </div>
+                `;
+            }
+        }
+        
+        async function loadDashboardData() {
+            try {
+                const response = await fetch(`${API_BASE}/api/dashboard`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const stats = data.data.summary;
+                    document.getElementById('total-ngos').textContent = stats.totalNGOs || '20';
+                    document.getElementById('verified-ngos').textContent = stats.verifiedNGOs || '18';
+                    document.getElementById('total-programs').textContent = stats.totalPrograms || '85+';
+                    document.getElementById('total-donations').textContent = '₹' + (stats.totalDonations ? Math.round(stats.totalDonations/100000) + 'L' : '157L');
+                    document.getElementById('total-beneficiaries').textContent = stats.totalBeneficiaries || '45K+';
+                }
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+            }
+        }
+        
+        async function loadNGOs(filter) {
+            const container = document.getElementById('ngos-container');
+            container.innerHTML = '<div class="loading">Loading NGOs...</div>';
+            
+            try {
+                let url = `${API_BASE}/api/ngos?limit=20`;
+                if (filter) url += `&status=${filter}`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.success && data.data) {
+                    const ngos = data.data;
+                    container.innerHTML = `
+                        <div class="ngo-grid">
+                            ${ngos.map(ngo => `
+                                <div class="ngo-card">
+                                    <div class="ngo-banner">${ngo.name}</div>
+                                    <div class="ngo-content">
+                                        <h4>${ngo.name}</h4>
+                                        <p>${ngo.description.substring(0, 120)}...</p>
+                                        <div class="ngo-meta">
+                                            <span class="ngo-location">📍 ${ngo.city}, ${ngo.state}</span>
+                                            <span class="ngo-status ${ngo.status === 'verified' ? 'status-verified' : 'status-pending'}">
+                                                ${ngo.status === 'verified' ? '✅ Verified' : '⏳ Under Review'}
+                                            </span>
+                                        </div>
+                                        <div style="margin-top: 10px; font-size: 0.8rem; color: #64748b;">
+                                            <div>💰 ₹${Math.round(ngo.totalDonations/100000)}L raised</div>
+                                            <div>👥 ${ngo.volunteerCount} volunteers • 🎯 ${ngo.beneficiariesServed} served</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = '<div class="error">Failed to load NGOs</div>';
+                }
+            } catch (error) {
+                container.innerHTML = '<div class="error">Error loading NGOs: ' + error.message + '</div>';
+            }
+        }
+        
+        async function loadPrograms(filter) {
+            const dataElement = document.getElementById('programs-data');
+            dataElement.textContent = 'Loading programs...';
+            
+            try {
+                let url = `${API_BASE}/api/programs?limit=50`;
+                if (filter && filter !== 'all') url += `&status=${filter}`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                dataElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                dataElement.textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        async function loadEvents(type) {
+            const dataElement = document.getElementById('events-data');
+            dataElement.textContent = 'Loading events...';
+            
+            try {
+                let url = `${API_BASE}/api/events?limit=50`;
+                if (type === 'upcoming') url += '&upcoming=true';
+                else if (type === 'published') url += '&status=published';
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                dataElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                dataElement.textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        async function loadDonations(filter) {
+            const dataElement = document.getElementById('donations-data');
+            dataElement.textContent = 'Loading donations...';
+            
+            try {
+                let url = `${API_BASE}/api/donations?limit=50`;
+                if (filter === 'completed') url += '&status=completed';
+                else if (filter === 'recent') url += '&limit=20';
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                dataElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                dataElement.textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        async function testAPI(endpoint) {
+            const responseElement = document.getElementById('api-response');
+            responseElement.textContent = 'Loading...';
+            
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`);
+                const data = await response.json();
+                
+                responseElement.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                responseElement.textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        // Load initial data
+        window.addEventListener('DOMContentLoaded', () => {
+            checkServerHealth();
+        });
+    </script>
+</body>
+</html>
