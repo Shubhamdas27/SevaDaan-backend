@@ -6,10 +6,9 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
-    "build": "tsc",
+    "build": "tsc --skipLibCheck",
     "build:watch": "tsc -w",
     "clean": "rimraf dist",
-    "prebuild": "npm run clean",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .ts",

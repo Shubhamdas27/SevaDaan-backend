@@ -73,12 +73,14 @@ vercel --prod
 ## Important Notes
 
 ⚠️ **Vercel Limitations for Backend:**
+
 - Serverless functions have 10s timeout (Hobby), 60s (Pro)
 - Not ideal for WebSocket connections
 - File uploads stored temporarily (use Cloudinary)
 - Cold starts on first request
 
 ✅ **Better Alternatives for Backend:**
+
 - Render.com (recommended)
 - Railway.app
 - Heroku

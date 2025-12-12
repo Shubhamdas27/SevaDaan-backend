@@ -11,7 +11,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 10000
+        value: 5000
       - key: MONGODB_URI
         sync: false
       - key: JWT_SECRET
@@ -20,28 +20,4 @@ services:
         value: 7d
       - key: SESSION_SECRET
         generateValue: true
-      - key: FRONTEND_URL
-        value: https://sevadaan-teal.vercel.app
-      - key: ALLOWED_ORIGINS
-        value: https://sevadaan-teal.vercel.app
-      - key: EMAIL_HOST
-        sync: false
-      - key: EMAIL_PORT
-        value: 587
-      - key: EMAIL_USER
-        sync: false
-      - key: EMAIL_PASS
-        sync: false
-      - key: EMAIL_FROM
-        value: SevaDaan <noreply@sevadaan.org>
-      - key: CLOUDINARY_CLOUD_NAME
-        sync: false
-      - key: CLOUDINARY_API_KEY
-        sync: false
-      - key: CLOUDINARY_API_SECRET
-        sync: false
-      - key: RAZORPAY_KEY_ID
-        sync: false
-      - key: RAZORPAY_KEY_SECRET
-        sync: false
     autoDeploy: true
