@@ -1,18 +1,15 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "installCommand": "npm install",
-  "rewrites": [
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/dist/server.js"
+      "src": "api/index.js",
+      "use": "@vercel/node"
     }
   ],
-  "functions": {
-    "dist/server.js": {
-      "runtime": "@vercel/node@3.0.0",
-      "memory": 1024,
-      "maxDuration": 30
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.js"
     }
-  }
+  ]
 }
