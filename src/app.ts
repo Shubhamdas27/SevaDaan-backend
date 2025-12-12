@@ -223,6 +223,22 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Root route handler
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'SevaDaan Backend API',
+    version: '1.0.0',
+    status: 'running',
+    endpoints: {
+      health: '/health',
+      api: '/api/v1',
+      docs: '/api/v1/docs'
+    },
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Add a root route for API verification
 app.get('/api/v1', (req, res) => {
   res.status(200).json({
