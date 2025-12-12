@@ -1,7 +1,6 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema, Types } from 'mongoose';
 
 export interface IPayment extends Document {
-  _id: string;
   paymentId: string; // Unique payment identifier
   orderId: string; // Order/transaction identifier
   gatewayPaymentId?: string; // Gateway-specific payment ID
